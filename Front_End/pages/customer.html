@@ -166,7 +166,7 @@ $("#btnCustomer").click(function () {
 
     let formData = $("#customerForm").serialize();
     $.ajax({
-        url:"http://localhost:8080/Json2/pages/customer",
+        url:"http://localhost:8080/App/pages/customer",
         method:"post",
         data:formData,
         success:function (res) {
@@ -196,7 +196,7 @@ $("#btnUpdate").click(function () {
         address:cusAddress
     }
     $.ajax({
-        url:"http://localhost:8080/Json2/pages/customer",
+        url:"http://localhost:8080/App/pages/customer",
         method:"put",
         data:JSON.stringify(customerDB),
         contentType:"application/json",
