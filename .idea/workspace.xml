@@ -10,10 +10,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bc4c1328-661d-4e44-bca5-54b93ecdfba6" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Back_End/src/lk/ijse/pos/servlet/CustomerServletAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/Back_End/src/lk/ijse/pos/servlet/CustomerServletAPI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Front_End/pages/customer.html" beforeDir="false" afterPath="$PROJECT_DIR$/Front_End/pages/customer.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/App/App.war" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/App/App.war" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Back_End/lk/ijse/pos/servlet/CustomerServletAPI.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Back_End/lk/ijse/pos/servlet/CustomerServletAPI.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -172,7 +171,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1692949917019</updated>
-      <workItem from="1692949919453" duration="6394000" />
+      <workItem from="1692949919453" duration="6708000" />
     </task>
     <servers />
   </component>
