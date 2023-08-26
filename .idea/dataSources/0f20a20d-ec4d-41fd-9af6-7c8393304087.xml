@@ -1057,25 +1057,56 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
-    <column id="312" parent="311" name="ID">
+    <table id="312" parent="303" name="item">
+      <Engine>InnoDB</Engine>
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </table>
+    <column id="313" parent="311" name="ID">
       <DasType>varchar(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="313" parent="311" name="Name">
+    <column id="314" parent="311" name="Name">
       <DasType>varchar(255)|0s</DasType>
       <Position>2</Position>
     </column>
-    <column id="314" parent="311" name="Address">
+    <column id="315" parent="311" name="Address">
       <DasType>varchar(255)|0s</DasType>
       <Position>3</Position>
     </column>
-    <index id="315" parent="311" name="PRIMARY">
+    <index id="316" parent="311" name="PRIMARY">
       <ColNames>ID</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="316" parent="311" name="PRIMARY">
+    <key id="317" parent="311" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
+    </key>
+    <column id="318" parent="312" name="Code">
+      <DasType>varchar(255)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+    </column>
+    <column id="319" parent="312" name="Name">
+      <DasType>varchar(255)|0s</DasType>
+      <Position>2</Position>
+    </column>
+    <column id="320" parent="312" name="qty">
+      <DasType>int|0s</DasType>
+      <Position>3</Position>
+    </column>
+    <column id="321" parent="312" name="Price">
+      <DasType>double|0s</DasType>
+      <Position>4</Position>
+    </column>
+    <index id="322" parent="312" name="PRIMARY">
+      <ColNames>Code</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <key id="323" parent="312" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>

@@ -32,34 +32,35 @@
         <div class="col-12 col-lg-4">
             <h1>Item Form</h1>
 
+            <form id="itemForm">
             <div class="form-group">
-                <label for="itemCode">Item Code</label>
-                <input class="form-control" id="itemCode" type="text">
+                <label for="txtItemCode">Item Code</label>
+                <input name="itemCode" class="form-control" id="txtItemCode" type="text">
                 <span class="control-error" id="lblCode"></span>
             </div>
             <div class="form-group">
-                <label for="itemName">Item Name</label>
-                <input class="form-control" id="itemName" type="text">
+                <label for="txtItemName">Item Name</label>
+                <input name="itemName" class="form-control" id="txtItemName" type="text">
                 <span class="control-error" id="lblname"></span>
             </div>
             <div class="form-group">
-                <label for="itemQty">Item Qty</label>
-                <input class="form-control" id="itemQty" type="text">
+                <label for="txtItemQty">Item Qty</label>
+                <input name="itemQty" class="form-control" id="txtItemQty" type="text">
                 <span class="control-error" id="lblqty"></span>
             </div>
             <div class="form-group">
-                <label for="itemPrice">Unit Price</label>
-                <input class="form-control" id="itemPrice" type="text">
+                <label for="txtItemPrice">Unit Price</label>
+                <input name="itemPrice" class="form-control" id="txtItemPrice" type="text">
                 <span class="control-error" id="lblprice"></span>
             </div>
             <div class="btn-group">
-                <button class="btn btn-primary" id="btnItem">Add Item</button>
-                <button class="btn btn-danger" id="btnItemDelete">Remove</button>
-                <button class="btn btn-warning" id="btnItemUpdate">Update</button>
-                <button class="btn btn-success">Get All</button>
-                <button class="btn btn-danger" id="btn-clear">Clear All</button>
+                <button class="btn btn-primary" id="btnItem" type="button">Add Item</button>
+                <button class="btn btn-danger" id="btnItemDelete" type="button">Remove</button>
+                <button class="btn btn-warning" id="btnItemUpdate" type="button">Update</button>
+                <button class="btn btn-success" type="button" id="btnItemGetAll">Get All</button>
+                <button class="btn btn-danger" id="btn-clear" type="button">Clear All</button>
             </div>
-
+            </form>
         </div>
         <div class="col-12 col-lg-8 mt-3">
             <table class="table table-bordered table-hover">
@@ -71,6 +72,12 @@
                     <th>Item Price</th>
                 </tr>
                 </thead>
+
+                <tr id="loader" style="display: none; text-align: center"  >
+                    <td colspan="4">
+                        <h1 style="color: red; font-family: Century">Loading.....!</h1>
+                    </td>
+                </tr>
                 <tbody id="tblItem">
 
                 </tbody>
@@ -79,6 +86,156 @@
     </section>
 
 </main>
+
+<script src="../assets/js/jquery-3.6.1.min.js"></script>
+<script src="../assets/js/bootstrap.min.js"></script>
+
+<script>
+
+    getAll();
+    /*<!--    bind row function  -->*/
+
+    function bindRowClickOnAction() {
+        $("#tblItem>tr").click(function () {
+
+            let code = $(this).children(":eq(0)").text();
+            let name = $(this).children(":eq(1)").text();
+            let qty = $(this).children(":eq(2)").text();
+            let price = $(this).children(":eq(3)").text();
+
+            $("#txtItemCode").val(code);
+            $("#txtItemName").val(name);
+            $("#txtItemQty").val(qty);
+            $("#txtItemPrice").val(price);
+
+        });
+
+    }
+
+    /*<!--    clear row function  -->*/
+
+    function clearRow(code,name,qty,price) {
+        $("#txtItemCode").val(code);
+        $("#txtItemName").val(name);
+        $("#txtItemQty").val(qty);
+        $("#txtItemPrice").val(price);
+    }
+
+    <!--    get all function  -->
+    function getAll() {
+        $("#loader").css('display','block');
+        $("#tblItem").empty();
+        $.ajax({
+            url : "http://localhost:8080/App/pages/item",
+            success : function (item) {
+                $("#loader").css('display','none');
+                for (let i in item) {
+                    let ite=item[i];
+                    let code=ite.itemCode;
+                    let name=ite.itemName;
+                    let qty = ite.itemQty;
+                    let price = ite.itemPrice;
+
+                    console.log(code,name,qty,price);
+
+                    let row = `<tr><td>${code}</td><td>${name}</td><td>${qty}</td><td>${price}</td></tr>`;
+                    $("#tblItem").append(row);
+                }
+                bindRowClickOnAction();
+                clearRow("","","","");
+
+            },
+            error: function(error){
+                console.log(error)
+            }
+        });
+
+    }
+
+    $("#btnItemGetAll").click(function () {
+
+        getAll();
+    });
+
+    <!--    Save function  -->
+
+    $("#btnItem").click(function () {
+
+
+        let formData = $("#itemForm").serialize();
+        $.ajax({
+            url:"http://localhost:8080/App/pages/item",
+            method:"post",
+            data:formData,
+            success:function (res) {
+
+                alert(
+                    res.message
+                );
+                getAll();
+            },
+            error:function (error) {
+                alert(JSON.parse(error.responseText).message)
+            }
+        });
+
+    });
+
+    <!--    Update function  -->
+    $("#btnItemUpdate").click(function () {
+
+        let itemCode = $("#txtItemCode").val();
+        let itemName = $("#txtItemName").val();
+        let itemQty = $("#txtItemQty").val();
+        let itemPrice = $("#txtItemPrice").val();
+
+        var ItemDB={
+            itemCode:itemCode,
+            itemName:itemName,
+            itemQty:itemQty,
+            itemPrice:itemPrice
+        }
+        $.ajax({
+            url:"http://localhost:8080/App/pages/item",
+            method:"put",
+            data:JSON.stringify(ItemDB),
+            contentType:"application/json",
+            success:function (res) {
+
+                alert(
+                    res.message
+                );
+                getAll();
+            },
+            error:function (error) {
+                alert(JSON.parse(error.responseText).message)
+            }
+
+        });
+
+    });
+
+    <!--    Delete function  -->
+
+    $("#btnItemDelete").click(function () {
+        let code = $("#txtItemCode").val();
+        $.ajax({
+            url: "http://localhost:8080/App/pages/item?itemCode=" + code,
+            method: 'delete',
+            success: function (res) {
+                getAll();
+                alert(
+                    res.message
+                );
+            },
+            error:function (error) {
+                alert(JSON.parse(error.responseText).message)
+            }
+        });
+
+    });
+
+</script>
 
 </body>
 </html>
