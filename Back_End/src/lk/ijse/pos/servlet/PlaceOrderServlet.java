@@ -15,7 +15,7 @@ import java.sql.SQLException;
 
 import static java.lang.Class.forName;
 
-@WebServlet(urlPatterns = "/pages/purchase-order")
+@WebServlet(urlPatterns = {"/pages/purchase-order"})
 public class PlaceOrderServlet extends HttpServlet {
 
 
@@ -37,8 +37,6 @@ public class PlaceOrderServlet extends HttpServlet {
         try {
             forName("com.mysql.jdbc.Driver");
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/test3", "root", "1234");
-            connection.setAutoCommit(false);
-
             PreparedStatement orderStatement = connection.prepareStatement("INSERT INTO orders VALUES(?,?,?)");
             orderStatement.setString(1, orderId);
             orderStatement.setString(2, orderDate);

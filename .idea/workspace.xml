@@ -10,12 +10,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bc4c1328-661d-4e44-bca5-54b93ecdfba6" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Back_End/src/lk/ijse/pos/servlet/PlaceOrderServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Back_End/src/lk/ijse/pos/servlet/OrderServlet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Front_End/model/Customer.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Front_End/model/Item.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Front_End/model/OrderDetails.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Front_End/model/Orders.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Front_End/pages/orders.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/3cf0c879-2675-4c53-8331-8bce77ab04ac.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/3cf0c879-2675-4c53-8331-8bce77ab04ac.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Back_End/src/lk/ijse/pos/servlet/PlaceOrderServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/Back_End/src/lk/ijse/pos/servlet/PlaceOrderServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Front_End/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/Front_End/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Front_End/pages/customer.html" beforeDir="false" afterPath="$PROJECT_DIR$/Front_End/pages/customer.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Front_End/pages/item.html" beforeDir="false" afterPath="$PROJECT_DIR$/Front_End/pages/item.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Front_End/pages/purchase-order.html" beforeDir="false" afterPath="$PROJECT_DIR$/Front_End/pages/purchase-order.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/App/App.war" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/App/App.war" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Back_End/lk/ijse/pos/servlet/PlaceOrderServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Back_End/lk/ijse/pos/servlet/PlaceOrderServlet.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,9 +61,10 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
     "jdk.selected.JAVA_MODULE": "1.8",
-    "last_opened_file_path": "F:/2nd Sem Workin Derectry/JavaEE_POS_App/Front_End/pages",
+    "last_opened_file_path": "F:/2nd Sem Workin Derectry/JavaEE_POS_App/Front_End",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -72,8 +83,9 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="F:\2nd Sem Workin Derectry\JavaEE_POS_App\Front_End\pages" />
       <recent name="F:\2nd Sem Workin Derectry\JavaEE_POS_App\Front_End" />
+      <recent name="F:\2nd Sem Workin Derectry\JavaEE_POS_App\Front_End\pages" />
+      <recent name="F:\2nd Sem Workin Derectry\JavaEE_POS_App\Front_End\model" />
       <recent name="F:\2nd Sem Workin Derectry\JavaEE_POS_App\Back_End\lib" />
     </key>
   </component>
@@ -176,7 +188,7 @@
       <option name="presentableId" value="Default" />
       <updated>1692949917019</updated>
       <workItem from="1692949919453" duration="21054000" />
-      <workItem from="1693034851964" duration="22977000" />
+      <workItem from="1693034851964" duration="35120000" />
     </task>
     <servers />
   </component>

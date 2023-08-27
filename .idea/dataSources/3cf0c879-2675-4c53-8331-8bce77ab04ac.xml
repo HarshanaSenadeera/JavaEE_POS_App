@@ -1139,13 +1139,25 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <DasType>varchar(255)|0s</DasType>
       <Position>1</Position>
     </column>
-    <column id="331" parent="314" name="orderDate">
+    <column id="331" parent="314" name="date">
       <DasType>varchar(255)|0s</DasType>
       <Position>2</Position>
     </column>
-    <column id="332" parent="314" name="customerId">
+    <column id="332" parent="314" name="customerID">
       <DasType>varchar(255)|0s</DasType>
       <Position>3</Position>
+    </column>
+    <column id="333" parent="314" name="itemsIDs">
+      <DasType>varchar(255)|0s</DasType>
+      <Position>4</Position>
+    </column>
+    <column id="334" parent="314" name="discount">
+      <DasType>varchar(255)|0s</DasType>
+      <Position>5</Position>
+    </column>
+    <column id="335" parent="314" name="total">
+      <DasType>varchar(255)|0s</DasType>
+      <Position>6</Position>
     </column>
   </database-model>
 </dataSource>
