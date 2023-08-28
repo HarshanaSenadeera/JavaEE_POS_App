@@ -20,79 +20,92 @@ public class PlaceOrderServlet extends HttpServlet {
 
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        resp.addHeader("Content-Type", "application/json");
+        resp.addHeader("Access-Control-Allow-Origin", "*");
+
         JsonReader reader = Json.createReader(req.getReader());
         JsonObject jsonObject = reader.readObject();
 
-        resp.addHeader("Access-Control-Allow-Origin", "*");
-
-        String orderId = jsonObject.getString("orderId");
-        String orderDate = jsonObject.getString("orderDate");
-        String customerId = jsonObject.getString("customerId");
-        String itemCode = jsonObject.getString("itemCode");
-        String qty = jsonObject.getString("qty");
-        String unitPrice = jsonObject.getString("unitPrice");
-        JsonArray orderDetails = jsonObject.getJsonArray("orderDetails");
-
-        try {
-            forName("com.mysql.jdbc.Driver");
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/test3", "root", "1234");
-            PreparedStatement orderStatement = connection.prepareStatement("INSERT INTO orders VALUES(?,?,?)");
-            orderStatement.setString(1, orderId);
-            orderStatement.setString(2, orderDate);
-            orderStatement.setString(3, customerId);
-
-            int affectedRows = orderStatement.executeUpdate();
-            if (affectedRows == 0) {
-                connection.rollback();
-                throw new RuntimeException("Failed to save the order");
-            } else {
-                System.out.println("Order Saved");
-
-            }
-
-
-            PreparedStatement orderDetailStatement = connection.prepareStatement("INSERT INTO orderDetails VALUES(?,?,?,?)");
-            orderDetailStatement.setString(1, orderId);
-            orderDetailStatement.setString(2, itemCode);
-            orderDetailStatement.setString(3, qty);
-            orderDetailStatement.setString(4, unitPrice);
-
-            affectedRows = orderDetailStatement.executeUpdate();
-            if (affectedRows == 0) {
-                connection.rollback();
-                throw new RuntimeException("Failed to save the order details");
-            } else {
-                System.out.println("Order Details Saved");
-            }
-
-
-            connection.commit();
-            resp.setStatus(HttpServletResponse.SC_OK);
-            JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
-            objectBuilder.add("message", "Successfully Purchased Order.");
-            objectBuilder.add("status", resp.getStatus());
-            resp.getWriter().print(objectBuilder.build());
-
-
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (SQLException e) {
-            JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
-            objectBuilder.add("message", "Failed to save the order.");
-            objectBuilder.add("status", HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            resp.getWriter().print(objectBuilder.build());
-
+        // Extract values from the JSON object
+        String orderID = jsonObject.getString("orderID");
+        String date = jsonObject.getString("date");
+        JsonObject customer = jsonObject.getJsonObject("customer");
+        JsonArray cart = jsonObject.getJsonArray("cart");
+        String total = jsonObject.getString("total");
+        String discount = jsonObject.getString("discount");
+        if (discount.equals("NaN")) {
+            discount = "0";
         }
 
+        String customerID = customer.getString("id");
+
+        System.out.println(cart);
+
+        String itemCode = "";
+        int qty = 0;
+        for (JsonValue cartItemValue : cart) {
+            JsonObject cartItem = (JsonObject) cartItemValue;
+            JsonObject item = cartItem.getJsonObject("item");
+
+            itemCode = item.getString("code");
+            qty = item.getInt("qty");
+
+            System.out.println(itemCode);
+            System.out.println(qty);
+        }
+
+        // transaction
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/test3", "root", "1234");
+            PreparedStatement pstm = connection.prepareStatement("insert into order_items (orderID, itemID, qty)\n" +
+                    "values (?,?,?);");
+            pstm.setObject(1, orderID);
+            pstm.setObject(2, itemCode);
+            pstm.setObject(3, String.valueOf(qty));
+
+            PreparedStatement pstm2 = connection.prepareStatement("insert into orders (orderID, date, customerID, discount, total)\n" +
+                    "values (?,?,?,?,?);");
+            pstm2.setObject(1, orderID);
+            pstm2.setObject(2, date);
+            pstm2.setObject(3, customerID);
+            pstm2.setObject(4, discount);
+            pstm2.setObject(5, total);
+
+            if (pstm.executeUpdate() > 0 && pstm2.executeUpdate() > 0) {
+                connection.commit();
+                showMessage(resp, orderID + " Order Successfully Added..!", "ok", "[]");
+                resp.setStatus(200);
+            } else {
+                connection.rollback();
+                showMessage(resp, "Wrong data", "error", "[]");
+                resp.setStatus(400);
+            }
+
+            connection.setAutoCommit(true);
+
+        } catch (ClassNotFoundException e) {
+            showMessage(resp, e.getMessage(), "error", "[]");
+            resp.setStatus(500);
+
+        } catch (SQLException e) {
+            showMessage(resp, e.getMessage(), "error", "[]");
+            resp.setStatus(400);
+        }
     }
 
-
     @Override
-    protected void doOptions(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doOptions(HttpServletRequest req, HttpServletResponse resp) {
         resp.addHeader("Access-Control-Allow-Origin", "*");
-        resp.addHeader("Access-Control-Allow-Headers", "Content-Type");
-        resp.addHeader("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE");
+        resp.addHeader("Access-Control-Allow-Headers", "Content-type");
+    }
+
+    private void showMessage(HttpServletResponse resp, String message, String state, String data) throws IOException {
+        JsonObjectBuilder response = Json.createObjectBuilder();
+        response.add("state", state);
+        response.add("message", message);
+        response.add("data", data);
+        resp.getWriter().print(response.build());
     }
 }
